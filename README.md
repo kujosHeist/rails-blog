@@ -129,6 +129,31 @@ https://guides.rubyonrails.org/getting_started.html
 		a collection of similar objects such as articles,
 		people, or animals
 
+	- a resource has the following operations
+		+ create
+		+ read
+		+ update
+		+ destroy
+
+	- To create a resource
+		+ GET to new action using new_article prefix
+		+ then POST to create action using articles prefix
+
+	- To read a resource
+		+ GET to index using articles prefix
+		+ or GET to show action using article prefix
+
+	- To update a resource
+		+ GET to edit action using edit_article prefix
+		+ then PUT or PATCH to update action using article prefix
+		+ PATCH is recommended as it allows you to partially update, while PUT replaces the full resource
+
+	- To destroy a resource
+		+ DELETE to destroy action using article prefix
+
+
+
+	
 
 
 
@@ -140,7 +165,7 @@ https://guides.rubyonrails.org/getting_started.html
 
 
 
-* Commands
+* Commands and Syntax
 
 
 	- To install rails:
@@ -185,6 +210,15 @@ https://guides.rubyonrails.org/getting_started.html
 	- Generate a controller
 		+ rails generate controller Welcome index 
 
+	- To add a resource to an app
+		+ add `resources :articles` to routes.rb
+
+	- To see the list of routes for an app
+		+ `rails routes`
+
+	- To inspect a route prefix in console
+		+ `include Rails.application.routes.url_helpers`
+		+ then e.g. `articles_path` or `edit_article_path(2)`
 
 
 
