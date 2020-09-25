@@ -212,6 +212,175 @@ https://guides.rubyonrails.org/getting_started.html
 	- You don't have to declare attributes inside rails models because
 		+ active record automatically maps column names to model attributes
 
+	- Rails action methods must be 
+		+ public
+
+	- Rail expects an action to
+		+ render a template with the same name in a folder named after its controller
+
+	- If a template is not found, rails trys to render
+		+ a template called application/new
+
+	- Rails specifes the format of thetemplate to be served in
+		+ request.formats
+
+	- When you request a page via browser, format expected is
+		+ text/html
+
+	- View template extentions form and meaning
+		+ new.html.erb html is format and erb is the handler
+		used to render it
+
+	- Migrations are
+		+ ruby classes used to create and modify db tables
+
+	- Migrations are reversible 
+		+ when using default "def change" format
+
+	- In addition to specified columns, migrations add
+		+ created_at and updated_at timestamps
+
+	- Rails uses `blank` commands to run migrations
+		+ rake 
+
+	- To specify environment for migration, add to cmd:
+		RAILS_ENV=production
+
+	- The create action of an article controller is:
+		```
+		def create
+			@article = Article.new(article_params)
+			@article.save
+			redirect_to @article # show action
+		end ```
+		
+
+	- Class names in ruby begin
+		+ with a capital letter
+
+	- Strong parameters...
+		+ requires us to tell rails exactly which params are allowed into our controller actions to prevent mass assignment
+
+	- To tell rails which params are allowed
+		```
+		private 
+			def article_params
+				params.require(:article).permit(:title, :text)
+			end ```
+
+	- The show action of an article controller is:
+		```
+		def show
+			@article.find(params[:id])
+		end ```
+
+	- an @var in an action is...
+		+ an instance variable which is passed to the view
+
+
+	- actions in a controller are usually in the order
+		* index
+		* show
+		* new
+		* edit
+		* create
+		* update
+		* destroy
+
+	- index action
+		def index
+			@articles = Article.all
+		end
+
+	- loop through articles in a view
+		@articles.each do |article|
+
+
+	- link to an article in a view
+		link_to 'show', article_path(article)
+
+	- link to new article action
+		link_to 'Create', new_article_path
+
+	- Models inherit from, which inherits from
+		- ApplcationRecord, ActiveRecord::Base
+
+	- To validate an articles title length, add to model
+		- `validates :title, presence: true, length: { minimum: 5 }`
+
+	- If an article validation fails
+		- @article.save returns false
+
+	- To render form again after create has failed
+		if @article.save
+			redirect_to @article
+		else
+			render 'new'
+		end
+
+	- To pass back the @article object to the template in the same request
+		render 'new'
+
+	- @article.update ...
+		updates only the params passed to it
+
+	- resource-oriented style in forms means
+		+ rails can infer the url and method to use
+
+	- DELETE route is mapped to, and has the syntax
+		+ destroy action, @article.destroy
+
+	- To add a destroy link to a view template
+		` <%= link_to 'Delete Record', article_path(article), method: :delete, data: { confirm: 'are you sure?'} %>`
+
+	- To create a model with a relationship to another model (e.g. a comments on an article)
+		+ add article:references to the generate command
+
+	- Linking two models in the generate command (e.g. a comment on an article) does the following
+		+ adds an article_id to comments table
+		+ add a foreign key constraint
+		+ adds an index to the db table
+
+	- To add an assocation between two models (e.g. a comment to an article)
+		+ add `belongs_to :article` to the comments model
+		+ add 'has_many :comments' to the articles model
+
+
+	- To add a hierarchical relationship between two resources in routes (e.g. comments to articles)
+		 ```
+		 resources :articles do 
+		 	resources :comments
+		 end ```
+
+	- To reference a nested resource in a form heading (e.g. comment for article)
+		form_with(model: [@article, @article.comments.build], local:true) do |form|
+
+	- Create action for nested resource (e.g. comment for article)
+		``` 
+		def create
+			@article = Article.find(params[:article_id])
+			@comment = @article.comments.create(comment_params)
+			redirect_to article_path(@article)
+		end ```
+
+	- To loop through comments of an article in view template
+
+		<%= @article.comments.each do |comment| %>
+			comment.text
+		<% end %>
+
+		
+
+
+
+
+
+
+
+
+
+
+
 
 
 * Commands and Syntax
@@ -271,7 +440,8 @@ https://guides.rubyonrails.org/getting_started.html
 	- To create a model on cmd lines
 		+ `rails generate model Article title:text text:text`
 
-
+	- To run a migration
+		+ `rails db:migrate`
 
 
 
