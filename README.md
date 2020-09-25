@@ -53,8 +53,6 @@ https://guides.rubyonrails.org/getting_started.html
 	- rails folders vendor:
 		a place for 3rd party code e.g. vendored gems
 
-	
-
 	- rails files Gemfile:
 		specify gem dependencies, used by bundler gem
 	
@@ -79,7 +77,6 @@ https://guides.rubyonrails.org/getting_started.html
 
 	- rails files .ruby-gemset
 		specifies the default ruby gemset
-
 	
 	- Default web server
 		puma 
@@ -151,17 +148,69 @@ https://guides.rubyonrails.org/getting_started.html
 	- To destroy a resource
 		+ DELETE to destroy action using article prefix
 
+	- An index view in an articles controller would be at the path
+		+ `app/views/articles/index.html.erb`
+
+	- A partial named form for articles controller should have path
+		`app/views/articles/_form.html.erb`
+
+	- To add a partial called form to a view
+		`<%= render 'form' %>`
+
+	- new/edit form partial has the following 'head'
+		<%= form_with model: @article, local: true do |form| %>
+
+		<% end %>
+
+	- new/edit view form partial has the following 'body'
+		<p>
+			<%= form.label :title %>
+			<%= form.text_field :title %>
+		</p>
+		<p>
+			<%= form.label :text %>
+			<%= form.text_area :text %>
+		</p>
+		<p>
+			<%= form.submit %>
+		</p>
+
+	- form errors has the following 'head'
+	  <%= if @article.errors.any? %>
+		<div id="error_explanation">
+		</div>
+	  <% end %>
 
 
+	- form errors has the following 'body' 'title'
+		<h2>
+			<%= pluralize(@article.errors.count, "errors") %> prohibited this article from being saved:
+		</h2>
+
+	- form errors has the following 'body' 'text'
+		<ul>
+			<% @article.errors.full_messages.each do |msg| %>
+				<li><% msg %></li>
+			<% end %>
+		</ul>
 	
+	- passing local: true to form_with
+		+ disables ajax submission of form
 
+	- to see what params an action received return:
+		`render plain: params[:article.inspect`
 
+	- models in rails use a `blank` name
+		+ singular
 
+	- db tables use a `blank` name
+		+ plural
 
+	- Cmd to create an article model creates the following:
+		+ migration, artcle model, test file, test fixture
 
-
-
-
+	- You don't have to declare attributes inside rails models because
+		+ active record automatically maps column names to model attributes
 
 
 
@@ -176,7 +225,6 @@ https://guides.rubyonrails.org/getting_started.html
 
 	- install specifc gem version
 		+ gem install fog -v 1.8
-
 
 	- RVM list ruby versions and gemsets
 		+ rvm list 
@@ -207,7 +255,7 @@ https://guides.rubyonrails.org/getting_started.html
 	- Start web server
 		+ rails server (or rails s)
 
-	- Generate a controller
+	- To create a controller on cmd line
 		+ rails generate controller Welcome index 
 
 	- To add a resource to an app
@@ -219,6 +267,11 @@ https://guides.rubyonrails.org/getting_started.html
 	- To inspect a route prefix in console
 		+ `include Rails.application.routes.url_helpers`
 		+ then e.g. `articles_path` or `edit_article_path(2)`
+
+	- To create a model on cmd lines
+		+ `rails generate model Article title:text text:text`
+
+
 
 
 
