@@ -369,15 +369,44 @@ https://guides.rubyonrails.org/getting_started.html
 			comment.text
 		<% end %>
 
-		
+	- To loop through comments of an article using a partial
+		`<%= render @article.comments %>`
+
+	- To reference the comment form partial of an article
+		`<%= render 'comments/form` %>
+
+	- Instance vars are available to an partials rendered in a view?
+		true
+
+	- To add a delete link to a comment on an article
+		`<%= link_to 'Delete Comment', [comment.article, comment], method: :delete, data: { confirm: 'Are you sure?'} %>`
+
+	- Action to delete comment
+		def destroy
+			@article = Article.find(params[:article_id])
+			@comment = @article.comments.find(params[:id])
+			@comment.destroy
+			redirect_to articles_path(@article)
+		end
 
 
+	- To delete associated objects of an article
+		+ add dependent option to has_many call in article model
+		+ `had_many :comments, dependent: :destroy`
 
+	- to block access to various actions, add to controller:
+		+ `http_basic_authenticate_with name: "dhh", password: "secret", except: [:index, :show]`
+		+ can also use `only: :destroy`
 
+	- Other authentication add-ons for rails:
+		+ Devise rails engine
+		+ Authlogic gem
 
-
-
-
+	- Rails recomments the blank character format and you should:
+		+ utf-8
+		+ store all external data as it
+		+ change your text editor to default to it
+		+ make sure your db is using it internally as rails converts data from db to it by default
 
 
 
