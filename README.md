@@ -11,7 +11,7 @@ https://guides.rubyonrails.org/getting_started.html
 		+ Convention over configuration:
 		Rails has opinions about the best way to do many things in a web application, and defaults to this set of conventions
 
-	- To install rails you need:
+	- To install rails 6 you need:
 		+ Ruby >= 2.5.0
 		+ SQLite3 
 		+ Node.js >= 8.16.0
@@ -57,7 +57,7 @@ https://guides.rubyonrails.org/getting_started.html
 		specify gem dependencies, used by bundler gem
 	
 	- rails files Gemfile.lock:
-		specifies exact gem versions used, should be added kept in repo
+		specifies exact gem versions used, should be added kept in git
 
 	- rails files package.json:
 		npm dependencies used by yarn
@@ -158,7 +158,7 @@ https://guides.rubyonrails.org/getting_started.html
 		`<%= render 'form' %>`
 
 	- new/edit form partial has the following 'head'
-		<%= form_with model: @article, local: true do |form| %>
+		<% form_with model: @article, local: true do |form| %>
 
 		<% end %>
 
@@ -474,4 +474,11 @@ https://guides.rubyonrails.org/getting_started.html
 
 
 
-* Syntax
+# New Notes
+Rails requires node.js because
+Rails's asset pipeline compiler requires a Javascript runtime
+
+
+
+
+
